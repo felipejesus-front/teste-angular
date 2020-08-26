@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {PhotoService} from './photos/photo/photo.service';
 import { Subscriber } from 'rxjs';
 
@@ -7,13 +7,15 @@ import { Subscriber } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  photos:any[] = [];
   
-  photos:Object[] = [];
+  constructor(private photoService: PhotoService){ }
   
-  constructor(photoService: PhotoService){
- 
-    photoService
+  ngOnInit(): void {
+    
+    this.photoService
     .listFromUser('flavio')
     .subscribe(photos => this.photos = photos);
   }
